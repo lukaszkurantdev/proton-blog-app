@@ -13,6 +13,13 @@ const GlobalStyles = StyleSheet.create({
     shadowRadius: 7.49,
     elevation: 10,
   },
+  separator: {
+    backgroundColor: Colors.GRAY,
+    marginVertical: 20,
+    height: 1,
+    width: '40%',
+    alignSelf: 'center',
+  },
 
   buttonText: {
     color: Colors.WHITE,

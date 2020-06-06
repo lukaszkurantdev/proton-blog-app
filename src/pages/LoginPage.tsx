@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -13,27 +13,31 @@ import GlobalStyles from '../styles/GlobalStyles';
 //services
 import TranslationService from '../core/services/TranslationService';
 
-class StartPage extends React.Component {
+class LoginPage extends React.Component {
   render = () => {
     return (
       <KeyboardAwareScrollView>
-        <LinearGradient
-          colors={[Colors.PRIMARY, Colors.SECONDARY]}
-          start={{x: -1, y: -1}}
-          end={{x: 1, y: 1}}
-          style={styles.topContainer}>
+        <StatusBar barStyle="dark-content" />
+        <View style={styles.topContainer}>
           <View style={[styles.iconContainer, GlobalStyles.shadow]}>
-            <Icon name="ios-planet" size={70} color={Colors.SECONDARY} />
+            <Icon name="ios-planet" size={70} color={Colors.WHITE} />
           </View>
-        </LinearGradient>
-        <View style={styles.bottomContainer}>
-          <Text style={[GlobalStyles.mainHeader, styles.centered]}>
-            {TranslationService.t('app_name')}
+          <Text
+            style={[
+              GlobalStyles.mainHeader,
+              styles.centered,
+              styles.mainHeader,
+            ]}>
+            {TranslationService.t('default_server')}
           </Text>
           <Text style={[GlobalStyles.mainHeaderDescription, styles.centered]}>
-            {TranslationService.t('app_slug')}
+            {TranslationService.t('login_into')}
           </Text>
-          <Button title={TranslationService.t('default_server_conn')} />
+        </View>
+        <View style={styles.bottomContainer}>
+          <Input placeholder={TranslationService.t('nickname')} />
+          <Input placeholder={TranslationService.t('password')} />
+          <Button title={TranslationService.t('login')} />
           <View style={GlobalStyles.separator} />
           <Text
             style={[
@@ -41,29 +45,29 @@ class StartPage extends React.Component {
               styles.centered,
               styles.description,
             ]}>
-            {TranslationService.t('write_manual')}
+            {TranslationService.t('dont_have_account')}{' '}
+            <Text style={styles.primaryText}>
+              {TranslationService.t('sign_up')}
+            </Text>
           </Text>
-          <Input placeholder={TranslationService.t('ip_address')} />
-          <Button title={TranslationService.t('connect')} type="secondary" />
         </View>
       </KeyboardAwareScrollView>
     );
   };
 }
 
-export default StartPage;
+export default LoginPage;
 
 const styles = StyleSheet.create({
   topContainer: {
-    height: 250,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10,
+    paddingVertical: 50,
   },
   iconContainer: {
     height: 100,
     width: 100,
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.SECONDARY,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -85,5 +89,11 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 10,
     marginBottom: 30,
+  },
+  mainHeader: {
+    marginTop: 20,
+  },
+  primaryText: {
+    color: Colors.SECONDARY,
   },
 });

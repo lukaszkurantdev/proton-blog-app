@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Colors from '../../styles/Colors';
 //pages
 import StartPage from '../StartPage';
+import LoginPage from '../LoginPage';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default class MainStackNavigator extends React.Component {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Start" component={StartPage} />
       </Stack.Navigator>
     </NavigationContainer>

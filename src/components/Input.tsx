@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.GRAY,
     paddingHorizontal: 15,
     fontFamily: Fonts.REGULAR,
+    marginVertical: 5,
   },
   errorContainer: {
     borderColor: Colors.DANGER,
