@@ -5,10 +5,6 @@ import MainStackNavigator from './src/pages/navigators/MainStackNavigator';
 
 export default class App extends React.Component {
   render = () => {
-    return (
-      <View>
-        <MainStackNavigator />
-      </View>
-    );
+    return <MainStackNavigator />;
   };
 }
