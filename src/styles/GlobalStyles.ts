@@ -11,12 +11,26 @@ const GlobalStyles = StyleSheet.create({
     },
     shadowOpacity: 0.37,
     shadowRadius: 7.49,
-    elevation: 12,
+    elevation: 10,
   },
 
   buttonText: {
     color: Colors.WHITE,
     fontFamily: Fonts.REGULAR,
+  },
+  mainHeader: {
+    color: Colors.TEXTPRIMARY,
+    fontFamily: Fonts.BOLD,
+    fontSize: 20,
+  },
+  mainHeaderDescription: {
+    color: Colors.TEXTSECONDARY,
+    fontFamily: Fonts.REGULAR,
+  },
+  errorText: {
+    color: Colors.DANGER,
+    fontFamily: Fonts.REGULAR,
+    fontSize: 12,
   },
 });
 

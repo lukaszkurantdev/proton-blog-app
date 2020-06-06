@@ -5,19 +5,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 //styles
 import Colors from '../../styles/Colors';
 //pages
-import LoginPage from '../LoginPage';
+import StartPage from '../StartPage';
 
 const Stack = createStackNavigator();
 
 export default class MainStackNavigator extends React.Component {
   render = () => (
     <NavigationContainer>
-      <StatusBar backgroundColor={Colors.PRIMARY} />
+      <StatusBar backgroundColor={'transparent'} translucent />
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Home" component={LoginPage} />
+        <Stack.Screen name="Start" component={StartPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
