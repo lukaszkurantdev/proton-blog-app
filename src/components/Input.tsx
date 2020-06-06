@@ -4,6 +4,7 @@ import IpRegex from 'ip-regex';
 //styles
 import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
+import Fonts from '../styles/Fonts';
 
 type InputType = 'default' | 'ip' | 'email' | 'password';
 
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     borderColor: Colors.GRAY,
     paddingHorizontal: 15,
+    fontFamily: Fonts.REGULAR,
   },
   errorContainer: {
     borderColor: Colors.DANGER,

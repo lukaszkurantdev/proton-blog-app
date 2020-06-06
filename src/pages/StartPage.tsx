@@ -10,6 +10,8 @@ import Loader from '../components/Loader';
 //styles
 import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
+//services
+import TranslationService from '../core/services/TranslationService';
 
 class StartPage extends React.Component {
   render = () => {
@@ -26,12 +28,12 @@ class StartPage extends React.Component {
         </LinearGradient>
         <View style={styles.bottomContainer}>
           <Text style={[GlobalStyles.mainHeader, styles.centered]}>
-            Proton Blog App
+            {TranslationService.t('app_name')}
           </Text>
           <Text style={[GlobalStyles.mainHeaderDescription, styles.centered]}>
-            Next generation of blogging
+            {TranslationService.t('app_slug')}
           </Text>
-          <Button title="Connect to default server" />
+          <Button title={TranslationService.t('default_server_conn')} />
           <View style={styles.separator} />
           <Text
             style={[
@@ -39,10 +41,10 @@ class StartPage extends React.Component {
               styles.centered,
               styles.description,
             ]}>
-            or write IP address manually
+            {TranslationService.t('write_manual')}
           </Text>
-          <Input />
-          <Button title="Connect" type="secondary" />
+          <Input placeholder={TranslationService.t('ip_address')} />
+          <Button title={TranslationService.t('connect')} type="secondary" />
         </View>
       </KeyboardAwareScrollView>
     );
