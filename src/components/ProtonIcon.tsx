@@ -9,6 +9,8 @@ type IconType = 'primary' | 'secondary';
 
 interface IProps {
   type: IconType;
+  containerSize?: number;
+  iconSize?: number;
 }
 
 const IconColors: {
@@ -26,15 +28,21 @@ const IconColors: {
 
 const ProtonIcon = (props: IProps) => {
   const iconColors = IconColors[props.type];
+  const containerSize = props.containerSize || 100;
+  const iconSize = props.iconSize || 70;
 
   return (
     <View
       style={[
         styles.iconContainer,
         GlobalStyles.shadow,
-        {backgroundColor: iconColors.backgroundColor},
+        {
+          backgroundColor: iconColors.backgroundColor,
+          height: containerSize,
+          width: containerSize,
+        },
       ]}>
-      <Icon name="ios-planet" size={70} color={iconColors.iconColor} />
+      <Icon name="ios-planet" size={iconSize} color={iconColors.iconColor} />
     </View>
   );
 };
@@ -43,8 +51,6 @@ export default ProtonIcon;
 
 const styles = StyleSheet.create({
   iconContainer: {
-    height: 100,
-    width: 100,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',

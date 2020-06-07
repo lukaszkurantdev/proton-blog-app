@@ -13,6 +13,16 @@ const GlobalStyles = StyleSheet.create({
     shadowRadius: 7.49,
     elevation: 10,
   },
+  smallShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   separator: {
     backgroundColor: Colors.GRAY,
     marginVertical: 20,
