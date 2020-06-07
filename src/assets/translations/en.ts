@@ -26,6 +26,10 @@ const en = {
   proton_blog: 'Proton blog',
   proposed: 'Proposed',
   others: 'Others',
+  add_image: 'Add image',
+  title: 'Title',
+  content: 'Content',
+  add_post: 'Add post',
 };
 
 export default en;
