@@ -7,12 +7,13 @@ import Carousel from '../components/Carousel';
 //models
 import {Post as PostModel} from '../core/models/Post.model';
 import GlobalStyles from '../styles/GlobalStyles';
+import TranslationService from '../core/services/TranslationService';
 
 export default class AddPostPage extends React.Component {
   render = () => {
     return (
       <>
-        <TopBar title="Add new post" />
+        <TopBar title={TranslationService.t('add_new_post')} />
       </>
     );
   };

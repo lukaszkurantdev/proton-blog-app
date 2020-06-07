@@ -19,6 +19,13 @@ const en = {
   confirm_password: 'Confirm password',
   have_account: 'Do you have account?',
   sign_in: 'Sign in',
+  //PostsPages
+  add_new_post: 'Add new post',
+  my_posts: 'My posts',
+  details: 'Details',
+  proton_blog: 'Proton blog',
+  proposed: 'Proposed',
+  others: 'Others',
 };
 
 export default en;

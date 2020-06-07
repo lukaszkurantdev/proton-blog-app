@@ -8,7 +8,7 @@ import Colors from '../../styles/Colors';
 import Fonts from '../../styles/Fonts';
 //pages
 import AddPostPage from '../AddPostPage';
-import MyPostsPage from '../MyPostsPage';
+import MyPostsStackNavigator from './MyPostsStackNavigator';
 import PostStackNavigator from './PostStackNavigator';
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +46,7 @@ export default class UserTabNavigator extends React.Component {
           },
         }}>
         <Tab.Screen name="Posts List" component={PostStackNavigator} />
-        <Tab.Screen name="My Posts" component={MyPostsPage} />
+        <Tab.Screen name="My Posts" component={MyPostsStackNavigator} />
         <Tab.Screen name="Add Post" component={AddPostPage} />
       </Tab.Navigator>
     </NavigationContainer>

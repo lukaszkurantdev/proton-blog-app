@@ -9,17 +9,20 @@ interface IProps {
   image: string;
   content: string;
   type?: 'default' | 'card';
+  onPress?: () => void;
 }
 
 const Post = (props: IProps) => {
-  const {title, image, content, type} = props;
+  const {title, image, content, type, onPress} = props;
   const isCard = type === 'card';
+
   return (
     <TouchableOpacity
       style={[
         isCard ? styles.cardContainer : styles.container,
         isCard ? GlobalStyles.shadow : GlobalStyles.smallShadow,
       ]}
+      onPress={onPress}
       activeOpacity={0.8}>
       <Image
         style={isCard ? styles.cardImage : styles.image}

@@ -7,18 +7,27 @@ import Carousel from '../components/Carousel';
 //models
 import {Post as PostModel} from '../core/models/Post.model';
 import GlobalStyles from '../styles/GlobalStyles';
+import TranslationService from '../core/services/TranslationService';
 
-export default class MyPostsPage extends React.Component {
+interface IProps {
+  navigation: any;
+}
+
+export default class MyPostsPage extends React.Component<IProps> {
   renderItem = ({item, index}: {item: PostModel; index: number}) => (
-    <Post {...item} />
+    <Post {...item} onPress={() => this.showDetails(item)} />
   );
 
   keyExtractor = (_item: any, index: number) => '' + index;
 
+  showDetails = (item: PostModel) => {
+    this.props.navigation.navigate('Details', {data: item});
+  };
+
   render = () => {
     return (
       <>
-        <TopBar title="My posts" />
+        <TopBar title={TranslationService.t('my_posts')} />
 
         <FlatList
           data={fakeData}
