@@ -1,12 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 //components
 import TopBar from '../components/TopBar';
 import Post from '../components/Post';
-import Carousel from '../components/Carousel';
 //models
 import {Post as PostModel} from '../core/models/Post.model';
-import GlobalStyles from '../styles/GlobalStyles';
 import TranslationService from '../core/services/TranslationService';
 
 interface IProps {
