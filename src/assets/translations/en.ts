@@ -14,6 +14,11 @@ const en = {
   login: 'Log in',
   dont_have_account: "Don't have account yet?",
   sign_up: 'Sign up',
+  //RegisterPage
+  register_into: 'Add new account',
+  confirm_password: 'Confirm password',
+  have_account: 'Do you have account?',
+  sign_in: 'Sign in',
 };
 
 export default en;

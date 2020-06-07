@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 //components
 import Button from '../components/Button';
 import Input from '../components/Input';
+import ProtonIcon from '../components/ProtonIcon';
 import Loader from '../components/Loader';
 //styles
 import Colors from '../styles/Colors';
@@ -22,19 +22,21 @@ class StartPage extends React.Component {
           start={{x: -1, y: -1}}
           end={{x: 1, y: 1}}
           style={styles.topContainer}>
-          <View style={[styles.iconContainer, GlobalStyles.shadow]}>
-            <Icon name="ios-planet" size={70} color={Colors.SECONDARY} />
-          </View>
+          <ProtonIcon type="secondary" />
         </LinearGradient>
         <View style={styles.bottomContainer}>
           <Text style={[GlobalStyles.mainHeader, styles.centered]}>
             {TranslationService.t('app_name')}
           </Text>
+
           <Text style={[GlobalStyles.mainHeaderDescription, styles.centered]}>
             {TranslationService.t('app_slug')}
           </Text>
+
           <Button title={TranslationService.t('default_server_conn')} />
+
           <View style={GlobalStyles.separator} />
+
           <Text
             style={[
               GlobalStyles.mainHeaderDescription,
@@ -43,7 +45,9 @@ class StartPage extends React.Component {
             ]}>
             {TranslationService.t('write_manual')}
           </Text>
+
           <Input placeholder={TranslationService.t('ip_address')} />
+
           <Button title={TranslationService.t('connect')} type="secondary" />
         </View>
       </KeyboardAwareScrollView>
@@ -59,14 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 10,
-  },
-  iconContainer: {
-    height: 100,
-    width: 100,
-    backgroundColor: Colors.WHITE,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   bottomContainer: {
     flex: 1,

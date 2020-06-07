@@ -12,7 +12,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 //services
 import TranslationService from '../core/services/TranslationService';
 
-class LoginPage extends React.Component {
+class RegisterPage extends React.Component {
   render = () => {
     return (
       <KeyboardAwareScrollView>
@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
             {TranslationService.t('default_server')}
           </Text>
           <Text style={[GlobalStyles.mainHeaderDescription, styles.centered]}>
-            {TranslationService.t('login_into')}
+            {TranslationService.t('register_into')}
           </Text>
         </View>
         <View style={styles.bottomContainer}>
@@ -36,7 +36,9 @@ class LoginPage extends React.Component {
 
           <Input placeholder={TranslationService.t('password')} />
 
-          <Button title={TranslationService.t('login')} />
+          <Input placeholder={TranslationService.t('confirm_password')} />
+
+          <Button title={TranslationService.t('sign_up')} />
 
           <View style={GlobalStyles.separator} />
 
@@ -46,9 +48,9 @@ class LoginPage extends React.Component {
               styles.centered,
               styles.description,
             ]}>
-            {TranslationService.t('dont_have_account')}{' '}
+            {TranslationService.t('have_account')}{' '}
             <Text style={styles.primaryText}>
-              {TranslationService.t('sign_up')}
+              {TranslationService.t('sign_in')}
             </Text>
           </Text>
         </View>
@@ -57,7 +59,7 @@ class LoginPage extends React.Component {
   };
 }
 
-export default LoginPage;
+export default RegisterPage;
 
 const styles = StyleSheet.create({
   topContainer: {
