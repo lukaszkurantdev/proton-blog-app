@@ -1,19 +1,31 @@
 import React from 'react';
 import {Text, StyleSheet, FlatList} from 'react-native';
+import {inject, observer} from 'mobx-react';
 //components
 import TopBar from '../components/TopBar';
 import Post from '../components/Post';
 import Carousel from '../components/Carousel';
+import ErrorContainer from '../components/ErrorContainer';
 //models
 import {Post as PostModel} from '../core/models/Post.model';
 import GlobalStyles from '../styles/GlobalStyles';
 import TranslationService from '../core/services/TranslationService';
+//stores
+import RootStore from '../core/store/RootStore';
+import Loader from '../components/Loader';
 
 interface IProps {
   navigation: any;
+  store: RootStore;
 }
 
+@inject('store')
+@observer
 export default class PostsListPage extends React.Component<IProps> {
+  componentDidMount = () => {
+    // this.props.store.postsStore.getList();
+  };
+
   renderItem = ({item, index}: {item: PostModel; index: number}) => (
     <Post {...item} onPress={() => this.showDetails(item)} />
   );
@@ -24,36 +36,42 @@ export default class PostsListPage extends React.Component<IProps> {
     this.props.navigation.navigate('Details', {data: item});
   };
 
-  render = () => {
+  render() {
+    const {fetchingPostForm, listError} = this.props.store.postsStore;
     return (
       <>
         <TopBar title={TranslationService.t('proton_blog')} />
-
-        <FlatList
-          data={fakeData}
-          renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}
-          contentContainerStyle={styles.flatListContent}
-          ListHeaderComponent={
-            <>
-              <Text style={[GlobalStyles.mainHeader, styles.header]}>
-                {TranslationService.t('proposed')}
-              </Text>
-              <Carousel data={fakeData} />
-              <Text
-                style={[
-                  GlobalStyles.mainHeader,
-                  styles.header,
-                  styles.othersHeader,
-                ]}>
-                {TranslationService.t('others')}
-              </Text>
-            </>
-          }
-        />
+        {fetchingPostForm ? (
+          <Loader />
+        ) : listError ? (
+          <ErrorContainer />
+        ) : (
+          <FlatList
+            data={[]}
+            renderItem={this.renderItem}
+            keyExtractor={this.keyExtractor}
+            contentContainerStyle={styles.flatListContent}
+            ListHeaderComponent={
+              <>
+                <Text style={[GlobalStyles.mainHeader, styles.header]}>
+                  {TranslationService.t('proposed')}
+                </Text>
+                <Carousel data={[]} />
+                <Text
+                  style={[
+                    GlobalStyles.mainHeader,
+                    styles.header,
+                    styles.othersHeader,
+                  ]}>
+                  {TranslationService.t('others')}
+                </Text>
+              </>
+            }
+          />
+        )}
       </>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
@@ -67,42 +85,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-const fakeData: PostModel[] = [
-  {
-    image: 'https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    image: 'https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    image: 'https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    image: 'https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    image: 'https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-  {
-    image: 'https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg',
-    title: 'Lorem ipsum dorem',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  },
-];

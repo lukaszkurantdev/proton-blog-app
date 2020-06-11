@@ -1,11 +1,23 @@
 import TcpSocket from 'react-native-tcp-socket';
 import TcpSocketType from 'react-native-tcp-socket/lib/types/TcpSocket';
 
-type ActionsType = 'LOGIN' | 'REGISTER';
+type ActionsType =
+  | 'LOGIN'
+  | 'REGISTER'
+  | 'LOGOUT'
+  | 'GET'
+  | 'CREATE'
+  | 'ALTER'
+  | 'DELETE';
 
 export const Actions: {[key in ActionsType]: string} = {
   LOGIN: 'login',
   REGISTER: 'register',
+  LOGOUT: 'logout',
+  GET: 'get',
+  CREATE: 'create',
+  ALTER: 'alter',
+  DELETE: 'delete',
 };
 
 export interface SocketOptions {

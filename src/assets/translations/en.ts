@@ -36,6 +36,8 @@ const en = {
   title: 'Title',
   content: 'Content',
   add_post: 'Add post',
+  list_error: 'Something went wrong...',
+  try_later: 'Try again later.',
   //Input validation
   empty_field: "This field can't be empty.",
   incorrect_ip: 'Incorrect IP address.',
