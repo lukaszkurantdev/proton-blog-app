@@ -23,7 +23,7 @@ interface IProps {
 @observer
 export default class PostsListPage extends React.Component<IProps> {
   componentDidMount = () => {
-    // this.props.store.postsStore.getList();
+    this.props.store.postsStore.getList();
   };
 
   renderItem = ({item, index}: {item: PostModel; index: number}) => (
@@ -37,7 +37,7 @@ export default class PostsListPage extends React.Component<IProps> {
   };
 
   render() {
-    const {fetchingPostForm, listError} = this.props.store.postsStore;
+    const {fetchingPostForm, listError, posts} = this.props.store.postsStore;
     return (
       <>
         <TopBar title={TranslationService.t('proton_blog')} />
@@ -47,7 +47,7 @@ export default class PostsListPage extends React.Component<IProps> {
           <ErrorContainer />
         ) : (
           <FlatList
-            data={[]}
+            data={posts}
             renderItem={this.renderItem}
             keyExtractor={this.keyExtractor}
             contentContainerStyle={styles.flatListContent}
@@ -56,7 +56,7 @@ export default class PostsListPage extends React.Component<IProps> {
                 <Text style={[GlobalStyles.mainHeader, styles.header]}>
                   {TranslationService.t('proposed')}
                 </Text>
-                <Carousel data={[]} />
+                <Carousel data={posts} />
                 <Text
                   style={[
                     GlobalStyles.mainHeader,

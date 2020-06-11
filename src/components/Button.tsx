@@ -35,7 +35,7 @@ const Button = (props: IProps) => {
 
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      activeOpacity={0.8}
       style={[containerStyle]}
       onPress={onPress}>
       <LinearGradient

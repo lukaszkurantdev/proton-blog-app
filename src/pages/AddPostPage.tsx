@@ -1,105 +1,102 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {inject, observer} from 'mobx-react';
 //components
 import TopBar from '../components/TopBar';
-import ImagePicker from 'react-native-image-picker';
-//models
+import ImagePicker from '../components/ImagePicker';
 import GlobalStyles from '../styles/GlobalStyles';
+//models
 import TranslationService from '../core/services/TranslationService';
-import Colors from '../styles/Colors';
 import Input from '../components/Input';
 import Button from '../components/Button';
+//types
+import {Post} from '../core/models/Post.model';
+//stores
+import RootStore from '../core/store/RootStore';
 
-export default class AddPostPage extends React.Component {
-  state = {
-    image: {uri: ''},
+interface IProps {
+  store: RootStore;
+  navigation: any;
+}
+
+@inject('store')
+@observer
+export default class AddPostPage extends React.Component<IProps> {
+  titleInputRef = React.createRef<Input>();
+  contentInputRef = React.createRef<Input>();
+  imagePickerRef = React.createRef<ImagePicker>();
+
+  navigateToPostList = () => {
+    this.props.navigation.navigate('UserNavigator', {screen: 'My Posts'});
   };
 
-  pickImage = () => {
-    const options = {
-      storageOptions: {
-        skipBackup: true,
-      },
-    };
+  create = async () => {
+    const titleRef = this.titleInputRef.current;
+    const contentRef = this.contentInputRef.current;
+    const imageRef = this.imagePickerRef.current;
 
-    ImagePicker.showImagePicker(options, (response) => {
-      // console.log('Response = ', response);
+    if (titleRef && contentRef && imageRef) {
+      const validations = [
+        titleRef.validate(),
+        contentRef.validate(),
+        imageRef.validate(),
+      ];
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = {uri: response.uri};
+      if (validations.findIndex((v) => !v) === -1) {
+        const post: Post = {
+          title: titleRef.getValue(),
+          content: contentRef.getValue(),
+          image: await imageRef.getValue(),
+        };
 
-        this.setState({
-          image: source,
-        });
-        console.log(response.uri);
+        this.props.store.postsStore.createPost(post, this.navigateToPostList);
       }
-    });
+    }
   };
-  render = () => {
+
+  render() {
+    const {fetchingPostForm, postFormError} = this.props.store.postsStore;
+
     return (
       <>
         <TopBar title={TranslationService.t('add_new_post')} />
         <KeyboardAwareScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="always">
-          <TouchableOpacity style={styles.imagePicker} onPress={this.pickImage}>
-            {!!this.state.image.uri ? (
-              <Image style={styles.image} source={this.state.image} />
-            ) : (
-              <View style={styles.iconContainer}>
-                <Icon name="ios-images" size={40} color={Colors.SECONDARY} />
-                <Text
-                  style={[
-                    GlobalStyles.mainHeaderDescription,
-                    styles.iconHeader,
-                  ]}>
-                  {TranslationService.t('add_image')}
-                </Text>
-              </View>
-            )}
-          </TouchableOpacity>
+          {postFormError && (
+            <Text style={[GlobalStyles.errorText, styles.errorText]}>
+              {TranslationService.t('not_logged')}
+            </Text>
+          )}
 
-          <Input placeholder={TranslationService.t('title')} />
-          <Input placeholder={TranslationService.t('content')} />
+          <ImagePicker ref={this.imagePickerRef} />
 
-          <Button type="primary" title={TranslationService.t('add_post')} />
+          <Input
+            ref={this.titleInputRef}
+            placeholder={TranslationService.t('title')}
+          />
+
+          <Input
+            ref={this.contentInputRef}
+            placeholder={TranslationService.t('content')}
+          />
+
+          <Button
+            onPress={this.create}
+            loading={fetchingPostForm}
+            type="primary"
+            title={TranslationService.t('add_post')}
+          />
         </KeyboardAwareScrollView>
       </>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
-  imagePicker: {
-    height: 200,
-    width: '100%',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: Colors.GRAY,
-    marginBottom: 20,
-  },
-  image: {
-    height: 198,
-    width: '100%',
-    borderRadius: 10,
-  },
-  iconContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconHeader: {
-    marginTop: 10,
-  },
+  errorText: {},
 });

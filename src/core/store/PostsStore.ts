@@ -27,7 +27,6 @@ class PostsStore {
   @computed
   get userPosts() {
     const {userId} = this.rootStore.userAuthStore;
-
     return this.posts.filter((v) => v.user_id === userId);
   }
 
@@ -40,6 +39,7 @@ class PostsStore {
 
     socket.request('GET', {}, (data) => {
       console.log('data', data);
+      this.posts = data.data;
 
       if (!(data.status && data.status === 'OK')) {
         this.listError = true;
@@ -50,7 +50,25 @@ class PostsStore {
   };
 
   @action
-  createPost = (post: Post, callback: (data: any) => void) => {};
+  createPost = (post: Post, callback: (data: any) => void) => {
+    this.fetchingPostForm = true;
+    this.postFormError = false;
+
+    const socket = this.rootStore.connectionStore.socket;
+    console.log('create');
+    socket.request('CREATE', post, (data) => {
+      console.log('data', data);
+
+      if (data.status && data.status === 'OK') {
+        this.getList();
+        callback && callback(data);
+      } else {
+        this.postFormError = true;
+      }
+
+      this.fetchingPostForm = false;
+    });
+  };
 
   @action
   alterPost = (post: Post, callback: (data: any) => void) => {};
