@@ -33,7 +33,7 @@ class StartPage extends React.Component<IProps> {
   connectToServer = (
     options: SocketOptions = {host: '192.168.0.178', port: 6666},
   ) => {
-    this.props.store.setSocket(options, this.onConnect);
+    this.props.store.connectionStore.setSocket(options, this.onConnect);
   };
 
   connectToCustomServer = () => {
@@ -57,7 +57,7 @@ class StartPage extends React.Component<IProps> {
   };
 
   render() {
-    const {connectingToServer, connectError} = this.props.store;
+    const {connectingToServer, connectError} = this.props.store.connectionStore;
 
     return (
       <KeyboardAwareScrollView>

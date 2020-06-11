@@ -1,7 +1,10 @@
 import {observable, action} from 'mobx';
 import Socket, {SocketOptions} from '../services/SocketService';
+import {RootStore} from './RootStore';
 
-class Store {
+class ConnectionStore {
+  rootStore: RootStore;
+
   @observable
   socket: Socket = new Socket({host: '192.168.0.178', port: 6666});
 
@@ -10,6 +13,10 @@ class Store {
 
   @observable
   connectError = false;
+
+  constructor(rootStore: any) {
+    this.rootStore = rootStore;
+  }
 
   @action
   setSocket = (options: SocketOptions, callback?: () => void) => {
@@ -29,4 +36,4 @@ class Store {
   };
 }
 
-export default new Store();
+export default ConnectionStore;
