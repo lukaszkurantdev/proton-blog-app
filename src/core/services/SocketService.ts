@@ -66,36 +66,33 @@ class Socket {
     }
   };
 
-  get = (): any => {
-    try {
-      let data = '';
-
-      while (data.includes('\r\n')) {
-        this.client &&
-          this.client.on('data', (part) => {
-            data += part.toString('utf8');
-          });
-      }
-
-      data = JSON.parse(data.substring(0, data.length - 2));
-
-      return data;
-    } catch (error) {
-      return {error: 'ConnectionError'};
-    }
-  };
-
-  send = (action: ActionsType, params: Object) => {
+  request = (
+    action: ActionsType,
+    params: Object,
+    callback: (data: any) => void,
+  ) => {
     try {
       const request = {action: Actions[action], params};
       console.log(request);
       const strigifiedJSON = JSON.stringify(request);
 
-      console.log('tosend', strigifiedJSON);
+      let data = '';
+
+      const listener = this.client?.on('data', (part) => {
+        console.log('part', part);
+        data += part.toString('utf8');
+
+        if (data.includes('\r\n')) {
+          const parsedData = JSON.parse(data.substring(0, data.length - 2));
+          data = '';
+          callback(parsedData);
+          listener?.remove();
+        }
+      });
 
       this.client && this.client.write(strigifiedJSON + '\r\n');
     } catch (error) {
-      return {error: 'ConnectionError'};
+      callback({error: 'ConnectionError'});
     }
   };
 

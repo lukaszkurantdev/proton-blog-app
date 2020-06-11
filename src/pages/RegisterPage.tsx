@@ -43,7 +43,7 @@ class RegisterPage extends React.Component<IProps> {
         this.props.store.userAuthStore.register(
           username,
           password,
-          this.navigateToLoginPage,
+          this.props.navigation.goBack,
         );
       }
     }

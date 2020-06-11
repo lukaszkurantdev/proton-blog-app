@@ -102,6 +102,7 @@ class Input extends React.PureComponent<IProps, IState> {
           selectionColor={Colors.PRIMARY}
           onFocus={this.onFocus}
           keyboardType={keyboardType}
+          secureTextEntry={type === 'password'}
           {...this.props}
         />
         {!!errorMessage && (

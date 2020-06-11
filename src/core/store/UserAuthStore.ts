@@ -29,23 +29,22 @@ class UserAuthStore {
   };
 
   @action
-  login = (username: string, password: string, callback?: () => void) => {
+  login = async (username: string, password: string, callback?: () => void) => {
     this.loginError = false;
     this.fetchingLogging = true;
 
     const socket = this.rootStore.connectionStore.socket;
 
-    socket.send('LOGIN', {username, password});
-    const data = socket.get();
+    socket.request('LOGIN', {username, password}, (data) => {
+      console.log('data', data);
 
-    console.log('data', data);
-
-    if (data.error || data.status === 'ERROR') {
-      this.loginError = true;
+      if (data.status && data.status === 'OK') {
+        callback && callback();
+      } else {
+        this.loginError = true;
+      }
       this.fetchingLogging = false;
-    } else {
-      callback && callback();
-    }
+    });
   };
 
   @action
@@ -55,19 +54,17 @@ class UserAuthStore {
 
     const socket = this.rootStore.connectionStore.socket;
 
-    console.log({username, password});
-    socket.send('REGISTER', {username, password});
-    const data = socket.get();
+    socket.request('REGISTER', {username, password}, (data) => {
+      console.log('data', data);
 
-    console.log('data', data);
-
-    if (data.error || data.status === 'ERROR') {
-      this.registrationError = true;
+      if (data.status && data.status === 'OK') {
+        this.registeredPrompt = true;
+        callback && callback();
+      } else {
+        this.registrationError = true;
+      }
       this.fetchingRegistration = false;
-    } else {
-      this.registeredPrompt = true;
-      callback && callback();
-    }
+    });
   };
 }
 

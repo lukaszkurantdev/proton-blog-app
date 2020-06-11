@@ -34,6 +34,10 @@ class LoginPage extends React.Component<IProps> {
     this.props.navigation.navigate('Register');
   };
 
+  navigateToUserNavigator = () => {
+    this.props.navigation.navigate('UserNavigator');
+  };
+
   login = () => {
     const nameRef = this.usernameInputRef.current;
     const passRef = this.passwordInputRef.current;
@@ -48,13 +52,13 @@ class LoginPage extends React.Component<IProps> {
         this.props.store.userAuthStore.login(
           username,
           password,
-          this.navigateToRegisterPage,
+          this.navigateToUserNavigator,
         );
       }
     }
   };
 
-  render = () => {
+  render() {
     const {
       loginError,
       fetchingLogging,
@@ -136,7 +140,7 @@ class LoginPage extends React.Component<IProps> {
         </View>
       </KeyboardAwareScrollView>
     );
-  };
+  }
 }
 
 export default LoginPage;
