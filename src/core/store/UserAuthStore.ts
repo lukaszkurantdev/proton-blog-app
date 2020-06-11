@@ -29,6 +29,26 @@ class UserAuthStore {
   };
 
   @action
+  login = (username: string, password: string, callback?: () => void) => {
+    this.loginError = false;
+    this.fetchingLogging = true;
+
+    const socket = this.rootStore.connectionStore.socket;
+
+    socket.send('LOGIN', {username, password});
+    const data = socket.get();
+
+    console.log('data', data);
+
+    if (data.error || data.status === 'ERROR') {
+      this.loginError = true;
+      this.fetchingLogging = false;
+    } else {
+      callback && callback();
+    }
+  };
+
+  @action
   register = (username: string, password: string, callback?: () => void) => {
     this.registrationError = false;
     this.fetchingRegistration = true;
@@ -45,8 +65,8 @@ class UserAuthStore {
       this.registrationError = true;
       this.fetchingRegistration = false;
     } else {
-      // this.registeredPrompt = true;
-      // callback && callback();
+      this.registeredPrompt = true;
+      callback && callback();
     }
   };
 }

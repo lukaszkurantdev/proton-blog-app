@@ -17,6 +17,8 @@ const en = {
   login: 'Log in',
   dont_have_account: "Don't have account yet?",
   sign_up: 'Sign up',
+  not_logged: 'Not logged in. Check your cridentials.',
+  account_created: 'Account created. You can sign in.',
   //RegisterPage
   register_into: 'Add new account',
   confirm_password: 'Confirm password',
