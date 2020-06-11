@@ -19,6 +19,9 @@ class UserAuthStore {
   @observable
   registrationError = false;
 
+  @observable
+  userId: number = 0;
+
   constructor(rootStore: any) {
     this.rootStore = rootStore;
   }

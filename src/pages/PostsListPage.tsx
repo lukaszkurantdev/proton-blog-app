@@ -6,13 +6,13 @@ import TopBar from '../components/TopBar';
 import Post from '../components/Post';
 import Carousel from '../components/Carousel';
 import ErrorContainer from '../components/ErrorContainer';
+import Loader from '../components/Loader';
 //models
 import {Post as PostModel} from '../core/models/Post.model';
 import GlobalStyles from '../styles/GlobalStyles';
 import TranslationService from '../core/services/TranslationService';
 //stores
 import RootStore from '../core/store/RootStore';
-import Loader from '../components/Loader';
 
 interface IProps {
   navigation: any;
