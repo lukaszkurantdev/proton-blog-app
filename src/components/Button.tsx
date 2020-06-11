@@ -15,6 +15,7 @@ interface IProps {
   loading?: boolean;
   containerStyle?: Object;
   type?: 'primary' | 'secondary';
+  onPress?: () => void;
 }
 
 const TypeColors = {
@@ -29,18 +30,21 @@ const TypeColors = {
 };
 
 const Button = (props: IProps) => {
-  const {title, loading, containerStyle, type} = props;
+  const {title, loading, containerStyle, type, onPress} = props;
   const typeColors = TypeColors[type || 'primary'];
 
   return (
-    <TouchableOpacity activeOpacity={0.6} style={[containerStyle]}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      style={[containerStyle]}
+      onPress={onPress}>
       <LinearGradient
         colors={typeColors.background}
         start={{x: -1, y: -1}}
         end={{x: 1, y: 1}}
         style={[styles.container, GlobalStyles.shadow]}>
         {loading ? (
-          <ActivityIndicator color={Colors.WHITE} />
+          <ActivityIndicator color={typeColors.text} />
         ) : (
           <Text style={[GlobalStyles.buttonText, {color: typeColors.text}]}>
             {title}

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import {observer, inject, Observer} from 'mobx-react';
 import LinearGradient from 'react-native-linear-gradient';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 //components
@@ -12,9 +13,55 @@ import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
 //services
 import TranslationService from '../core/services/TranslationService';
+import {SocketOptions} from '../core/services/SocketService';
 
-class StartPage extends React.Component {
-  render = () => {
+interface IProps {
+  store: any;
+  navigation: any;
+}
+
+@inject('store')
+@observer
+class StartPage extends React.Component<IProps> {
+  ipAddressInputRef = React.createRef<Input>();
+  portInputRef = React.createRef<Input>();
+
+  constructor(props: IProps) {
+    super(props);
+  }
+
+  connectToServer = (
+    options: SocketOptions = {host: '192.168.0.178', port: 6666},
+  ) => {
+    this.props.store.setSocket(options, this.onConnect);
+  };
+
+  connectToCustomServer = () => {
+    const ipRef = this.ipAddressInputRef.current;
+    const portRef = this.portInputRef.current;
+
+    if (ipRef && portRef) {
+      const validations = [ipRef.validate(), portRef.validate()];
+      console.log(
+        validations,
+        validations.findIndex((v) => !v),
+      );
+      if (validations.findIndex((v) => !v) === -1) {
+        const host = ipRef.getValue();
+        const port = parseInt(portRef.getValue());
+
+        this.connectToServer({host, port});
+      }
+    }
+  };
+
+  onConnect = () => {
+    this.props.navigation.navigate('Login');
+  };
+
+  render() {
+    const {connectingToServer, connectError} = this.props.store;
+
     return (
       <KeyboardAwareScrollView>
         <LinearGradient
@@ -24,6 +71,7 @@ class StartPage extends React.Component {
           style={styles.topContainer}>
           <ProtonIcon type="secondary" />
         </LinearGradient>
+
         <View style={styles.bottomContainer}>
           <Text style={[GlobalStyles.mainHeader, styles.centered]}>
             {TranslationService.t('app_name')}
@@ -33,7 +81,22 @@ class StartPage extends React.Component {
             {TranslationService.t('app_slug')}
           </Text>
 
-          <Button title={TranslationService.t('default_server_conn')} />
+          {connectError && (
+            <Text
+              style={[
+                GlobalStyles.errorText,
+                styles.centered,
+                styles.errorText,
+              ]}>
+              {TranslationService.t('connection_error')}
+            </Text>
+          )}
+
+          <Button
+            title={TranslationService.t('default_server_conn')}
+            onPress={() => this.connectToServer()}
+            loading={connectingToServer}
+          />
 
           <View style={GlobalStyles.separator} />
 
@@ -46,13 +109,28 @@ class StartPage extends React.Component {
             {TranslationService.t('write_manual')}
           </Text>
 
-          <Input placeholder={TranslationService.t('ip_address')} />
+          <Input
+            ref={this.ipAddressInputRef}
+            type="ip"
+            placeholder={TranslationService.t('ip_address')}
+          />
 
-          <Button title={TranslationService.t('connect')} type="secondary" />
+          <Input
+            ref={this.portInputRef}
+            type="port"
+            placeholder={TranslationService.t('port')}
+          />
+
+          <Button
+            title={TranslationService.t('connect')}
+            type="secondary"
+            onPress={this.connectToCustomServer}
+            loading={connectingToServer}
+          />
         </View>
       </KeyboardAwareScrollView>
     );
-  };
+  }
 }
 
 export default StartPage;
@@ -81,5 +159,8 @@ const styles = StyleSheet.create({
   description: {
     marginTop: 10,
     marginBottom: 30,
+  },
+  errorText: {
+    marginTop: 20,
   },
 });

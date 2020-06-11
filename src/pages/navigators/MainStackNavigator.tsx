@@ -20,10 +20,10 @@ export default class MainStackNavigator extends React.Component {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="Start" component={StartPage} />
         <Stack.Screen name="UserNavigator" component={UserTabNavigator} />
         <Stack.Screen name="Register" component={RegisterPage} />
         <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="Start" component={StartPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

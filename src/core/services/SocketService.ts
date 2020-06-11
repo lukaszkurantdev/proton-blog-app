@@ -7,7 +7,7 @@ export const Actions: {[key in ActionsType]: string} = {
   LOGIN: 'login',
 };
 
-interface SocketOptions {
+export interface SocketOptions {
   host: string;
   port: number;
 }
@@ -16,23 +16,32 @@ class Socket {
   connected: boolean = false;
   client: TcpSocketType | undefined;
 
-  constructor(options: SocketOptions) {
+  constructor(
+    options: SocketOptions,
+    callbackOnConnect?: () => void,
+    onError?: () => void,
+  ) {
     this.connected = false;
-    this.connect(options);
+    this.connect(options, callbackOnConnect, onError);
   }
 
-  connect = (options: SocketOptions) => {
+  connect = (
+    opts: SocketOptions,
+    callback?: () => void,
+    onError?: () => void,
+  ) => {
     try {
       this.client = TcpSocket.createConnection(
         {
-          host: options.host,
-          port: options.port,
+          host: opts.host,
+          port: opts.port,
           tls: true,
           tlsCheckValidity: true,
-          tlsCert: require('../../server.pem'),
+          tlsCert: require('../../../server.pem'),
         },
         () => {
           this.connected = true;
+          callback && callback();
         },
       );
 
@@ -44,12 +53,14 @@ class Socket {
       this.client.on('error', (error) => {
         console.log(error);
         this.close();
+        onError && onError();
         this.connected = false;
       });
 
       return true;
     } catch (error) {
       this.connected = false;
+      onError && onError();
       return false;
     }
   };

@@ -5,7 +5,10 @@ const en = {
   default_server_conn: 'Connect to default server',
   write_manual: 'or write IP address manually',
   ip_address: 'IP Address',
+  port: 'Port',
   connect: 'Connect',
+  connection_error:
+    'Connection error.\nCheck your server address or try again later.',
   //LoginPage
   default_server: 'Default Proton server',
   login_into: 'Log in into app',

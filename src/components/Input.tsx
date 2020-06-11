@@ -6,7 +6,7 @@ import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
 import Fonts from '../styles/Fonts';
 
-type InputType = 'default' | 'ip' | 'email' | 'password';
+type InputType = 'default' | 'ip' | 'port' | 'email' | 'password';
 
 interface IProps {
   placeholder?: string;
@@ -27,8 +27,15 @@ const Validations: {
     func: (value: string) => !!value,
   },
   ip: {
-    message: 'Pole nie może być puste!',
+    message: 'Niepoprawny adres IP',
     func: (value: string) => IpRegex({exact: true}).test(value),
+  },
+  port: {
+    message: 'Niepoprawny numer portu',
+    func: (value: string) => {
+      var num = +value;
+      return num >= 1 && num <= 65355 && value === num.toString();
+    },
   },
   email: {
     message: 'Pole nie może być puste!',
@@ -61,12 +68,28 @@ class Input extends React.PureComponent<IProps, IState> {
     if (type !== 'default') {
       validate = Validations[type || 'default'].func(this.state.value);
     }
-    return this.state.value.length !== 0;
+
+    if (!validate) {
+      this.setState({errorMessage: Validations[type || 'default'].message});
+    } else if (this.state.errorMessage.length !== 0) {
+      this.setState({errorMessage: ''});
+    }
+
+    return this.state.value.length !== 0 && validate;
+  };
+
+  onFocus = () => {
+    if (this.state.errorMessage.length !== 0) {
+      this.setState({errorMessage: ''});
+    }
   };
 
   render = () => {
-    const {containerStyle} = this.props;
+    const {containerStyle, type} = this.props;
     const {errorMessage, value} = this.state;
+
+    const keyboardType =
+      type === 'ip' || type === 'port' ? 'numeric' : 'default';
 
     return (
       <View style={containerStyle}>
@@ -75,6 +98,8 @@ class Input extends React.PureComponent<IProps, IState> {
           value={value}
           onChangeText={this.setValue}
           selectionColor={Colors.PRIMARY}
+          onFocus={this.onFocus}
+          keyboardType={keyboardType}
           {...this.props}
         />
         {!!errorMessage && (
