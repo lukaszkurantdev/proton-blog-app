@@ -42,10 +42,7 @@ class StartPage extends React.Component<IProps> {
 
     if (ipRef && portRef) {
       const validations = [ipRef.validate(), portRef.validate()];
-      console.log(
-        validations,
-        validations.findIndex((v) => !v),
-      );
+
       if (validations.findIndex((v) => !v) === -1) {
         const host = ipRef.getValue();
         const port = parseInt(portRef.getValue());

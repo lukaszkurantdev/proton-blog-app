@@ -33,6 +33,12 @@ const en = {
   title: 'Title',
   content: 'Content',
   add_post: 'Add post',
+  //Input validation
+  empty_field: "This field can't be empty.",
+  incorrect_ip: 'Incorrect IP address.',
+  incorrrect_port: 'Incorrect port number.',
+  incorrect_email: 'Incorrect email address.',
+  incorrect_password: 'Password is too short.',
 };
 
 export default en;

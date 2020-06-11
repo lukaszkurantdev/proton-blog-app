@@ -5,6 +5,8 @@ import IpRegex from 'ip-regex';
 import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
 import Fonts from '../styles/Fonts';
+//services
+import TranslationService from '../core/services/TranslationService';
 
 type InputType = 'default' | 'ip' | 'port' | 'email' | 'password';
 
@@ -23,26 +25,26 @@ const Validations: {
   [key in InputType]: {message: string; func: (value: string) => boolean};
 } = {
   default: {
-    message: 'Pole nie może być puste!',
+    message: TranslationService.t('empty_field'),
     func: (value: string) => !!value,
   },
   ip: {
-    message: 'Niepoprawny adres IP',
+    message: TranslationService.t('incorrect_ip'),
     func: (value: string) => IpRegex({exact: true}).test(value),
   },
   port: {
-    message: 'Niepoprawny numer portu',
+    message: TranslationService.t('incorrrect_port'),
     func: (value: string) => {
       var num = +value;
       return num >= 1 && num <= 65355 && value === num.toString();
     },
   },
   email: {
-    message: 'Pole nie może być puste!',
+    message: TranslationService.t('incorrect_email'),
     func: (value: string) => IpRegex({exact: true}).test(value),
   },
   password: {
-    message: 'Pole nie może być puste!',
+    message: TranslationService.t('incorrect_password'),
     func: (value: string) => IpRegex({exact: true}).test(value),
   },
 };

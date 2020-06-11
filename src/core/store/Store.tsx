@@ -1,4 +1,4 @@
-import {decorate, observable, action, computed, autorun} from 'mobx';
+import {observable, action} from 'mobx';
 import Socket, {SocketOptions} from '../services/SocketService';
 
 class Store {
