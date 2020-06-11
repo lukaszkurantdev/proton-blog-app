@@ -62,7 +62,7 @@ class StartPage extends React.Component<IProps> {
     const {connectingToServer, connectError} = this.props.store.connectionStore;
 
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
         <LinearGradient
           colors={[Colors.PRIMARY, Colors.SECONDARY]}
           start={{x: -1, y: -1}}

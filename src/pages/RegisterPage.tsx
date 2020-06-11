@@ -56,7 +56,7 @@ class RegisterPage extends React.Component<IProps> {
     } = this.props.store.userAuthStore;
 
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="always">
         <StatusBar barStyle="dark-content" />
         <View style={styles.topContainer}>
           <ProtonIcon type="primary" />

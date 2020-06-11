@@ -47,7 +47,9 @@ export default class AddPostPage extends React.Component {
     return (
       <>
         <TopBar title={TranslationService.t('add_new_post')} />
-        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+        <KeyboardAwareScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="always">
           <TouchableOpacity style={styles.imagePicker} onPress={this.pickImage}>
             {!!this.state.image.uri ? (
               <Image style={styles.image} source={this.state.image} />
