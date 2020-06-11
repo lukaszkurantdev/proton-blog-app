@@ -11,8 +11,18 @@ import Colors from '../styles/Colors';
 import GlobalStyles from '../styles/GlobalStyles';
 //services
 import TranslationService from '../core/services/TranslationService';
+import RootStore from '../core/store/RootStore';
 
-class LoginPage extends React.Component {
+interface IProps {
+  store: RootStore;
+  navigation: any;
+}
+
+class LoginPage extends React.Component<IProps> {
+  navigateToRegisterPage = () => {
+    this.props.navigation.navigate('Register');
+  };
+
   render = () => {
     return (
       <KeyboardAwareScrollView>
@@ -32,7 +42,7 @@ class LoginPage extends React.Component {
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          <Input placeholder={TranslationService.t('nickname')} />
+          <Input placeholder={TranslationService.t('username')} />
 
           <Input placeholder={TranslationService.t('password')} />
 
@@ -47,7 +57,9 @@ class LoginPage extends React.Component {
               styles.description,
             ]}>
             {TranslationService.t('dont_have_account')}{' '}
-            <Text style={styles.primaryText}>
+            <Text
+              style={styles.primaryText}
+              onPress={this.navigateToRegisterPage}>
               {TranslationService.t('sign_up')}
             </Text>
           </Text>

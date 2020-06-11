@@ -1,10 +1,11 @@
 import TcpSocket from 'react-native-tcp-socket';
 import TcpSocketType from 'react-native-tcp-socket/lib/types/TcpSocket';
 
-type ActionsType = 'LOGIN';
+type ActionsType = 'LOGIN' | 'REGISTER';
 
 export const Actions: {[key in ActionsType]: string} = {
   LOGIN: 'login',
+  REGISTER: 'register',
 };
 
 export interface SocketOptions {
@@ -65,7 +66,7 @@ class Socket {
     }
   };
 
-  get = () => {
+  get = (): any => {
     try {
       let data = '';
 
@@ -86,8 +87,11 @@ class Socket {
 
   send = (action: ActionsType, params: Object) => {
     try {
-      const request = {action, params};
+      const request = {action: Actions[action], params};
+      console.log(request);
       const strigifiedJSON = JSON.stringify(request);
+
+      console.log('tosend', strigifiedJSON);
 
       this.client && this.client.write(strigifiedJSON + '\r\n');
     } catch (error) {

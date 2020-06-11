@@ -14,9 +14,11 @@ import GlobalStyles from '../styles/GlobalStyles';
 //services
 import TranslationService from '../core/services/TranslationService';
 import {SocketOptions} from '../core/services/SocketService';
+//stores
+import RootStore from '../core/store/RootStore';
 
 interface IProps {
-  store: any;
+  store: RootStore;
   navigation: any;
 }
 

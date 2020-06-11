@@ -9,7 +9,7 @@ import Store from './src/core/store/RootStore';
 export default class App extends React.Component {
   render = () => {
     return (
-      <Provider store={Store}>
+      <Provider store={new Store()}>
         <MainStackNavigator />
       </Provider>
     );

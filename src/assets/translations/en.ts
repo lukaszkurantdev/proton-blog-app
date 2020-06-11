@@ -12,7 +12,7 @@ const en = {
   //LoginPage
   default_server: 'Default Proton server',
   login_into: 'Log in into app',
-  nickname: 'Nickname',
+  username: 'Username',
   password: 'Password',
   login: 'Log in',
   dont_have_account: "Don't have account yet?",
@@ -22,6 +22,7 @@ const en = {
   confirm_password: 'Confirm password',
   have_account: 'Do you have account?',
   sign_in: 'Sign in',
+  account_not_created: "Account didn't created. Try again.",
   //PostsPages
   add_new_post: 'Add new post',
   my_posts: 'My posts',
@@ -37,7 +38,7 @@ const en = {
   empty_field: "This field can't be empty.",
   incorrect_ip: 'Incorrect IP address.',
   incorrrect_port: 'Incorrect port number.',
-  incorrect_email: 'Incorrect email address.',
+  invalid_username: 'Username is too short.',
   incorrect_password: 'Password is too short.',
 };
 

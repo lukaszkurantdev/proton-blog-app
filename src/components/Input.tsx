@@ -8,7 +8,7 @@ import Fonts from '../styles/Fonts';
 //services
 import TranslationService from '../core/services/TranslationService';
 
-type InputType = 'default' | 'ip' | 'port' | 'email' | 'password';
+type InputType = 'default' | 'ip' | 'port' | 'username' | 'password';
 
 interface IProps {
   placeholder?: string;
@@ -39,13 +39,13 @@ const Validations: {
       return num >= 1 && num <= 65355 && value === num.toString();
     },
   },
-  email: {
-    message: TranslationService.t('incorrect_email'),
-    func: (value: string) => IpRegex({exact: true}).test(value),
+  username: {
+    message: TranslationService.t('invalid_username'),
+    func: (value: string) => value.length > 5,
   },
   password: {
     message: TranslationService.t('incorrect_password'),
-    func: (value: string) => IpRegex({exact: true}).test(value),
+    func: (value: string) => value.length > 5,
   },
 };
 
