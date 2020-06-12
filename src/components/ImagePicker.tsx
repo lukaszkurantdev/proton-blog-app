@@ -11,7 +11,6 @@ import TranslationService from '../core/services/TranslationService';
 
 export default class ImagePick extends React.Component {
   state = {
-    image: '',
     imageBase64: '',
     errorMessage: '',
   };
@@ -34,7 +33,6 @@ export default class ImagePick extends React.Component {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         this.setState({
-          image: response.uri,
           imageBase64: 'data:image/jpeg;base64,' + response.data,
           errorMessage: '',
         });
@@ -43,7 +41,7 @@ export default class ImagePick extends React.Component {
   };
 
   validate = () => {
-    const validate = this.state.image.length !== 0;
+    const validate = this.state.imageBase64.length !== 0;
 
     if (!validate) {
       this.setState({errorMessage: TranslationService.t('empty_field')});
@@ -67,7 +65,7 @@ export default class ImagePick extends React.Component {
             !!this.state.errorMessage && styles.errorContainer,
           ]}
           onPress={this.pickImage}>
-          {!!this.state.image ? (
+          {!!this.state.imageBase64 ? (
             <Image
               style={styles.image}
               source={{uri: this.state.imageBase64}}

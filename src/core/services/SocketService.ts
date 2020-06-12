@@ -28,6 +28,7 @@ export interface SocketOptions {
 class Socket {
   connected: boolean = false;
   client: TcpSocketType | undefined;
+  data: string = '';
 
   constructor(
     options: SocketOptions,
@@ -70,6 +71,10 @@ class Socket {
         this.connected = false;
       });
 
+      this.client?.on('data', (part) => {
+        this.data += part.toString('utf8');
+      });
+
       return true;
     } catch (error) {
       this.connected = false;
@@ -78,31 +83,34 @@ class Socket {
     }
   };
 
-  request = (
+  asynchCheck = (resolve: any, reject: any) => {
+    if (
+      this.data[this.data.length - 2] === '\r' &&
+      this.data[this.data.length - 1] === '\n'
+    ) {
+      const parsedData = JSON.parse(
+        this.data.substring(0, this.data.length - 2),
+      );
+      this.data = '';
+      resolve(parsedData);
+    } else {
+      setTimeout(() => this.asynchCheck(resolve, reject), 50);
+    }
+  };
+
+  request = async (
     action: ActionsType,
     params: Object,
     callback: (data: any) => void,
   ) => {
     try {
       const request = {action: Actions[action], params};
-      console.log(request);
       const strigifiedJSON = JSON.stringify(request);
 
-      let data = '';
-
-      const listener = this.client?.on('data', (part) => {
-        console.log('part', part);
-        data += part.toString('utf8');
-
-        if (data.includes('\r\n')) {
-          const parsedData = JSON.parse(data.substring(0, data.length - 2));
-          data = '';
-          callback(parsedData);
-          listener?.remove();
-        }
-      });
-
       this.client && this.client.write(strigifiedJSON + '\r\n');
+
+      const data = new Promise(this.asynchCheck);
+      callback(await data);
     } catch (error) {
       callback({error: 'ConnectionError'});
     }

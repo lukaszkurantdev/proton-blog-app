@@ -38,7 +38,6 @@ class PostsStore {
     const socket = this.rootStore.connectionStore.socket;
 
     socket.request('GET', {}, (data) => {
-      console.log('data', data);
       this.posts = data.data;
 
       if (!(data.status && data.status === 'OK')) {
@@ -50,7 +49,7 @@ class PostsStore {
   };
 
   @action
-  createPost = (post: Post, callback: (data: any) => void) => {
+  createPost = async (post: Post, callback: (data: any) => void) => {
     this.fetchingPostForm = true;
     this.postFormError = false;
 

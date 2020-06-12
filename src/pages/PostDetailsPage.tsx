@@ -13,7 +13,6 @@ interface IProps {
 
 export default class PostDetailsPage extends React.Component<IProps> {
   render = () => {
-    console.log(this.props.route);
     const {image, title, content} = this.props.route.params.data;
     return (
       <>
