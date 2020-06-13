@@ -52,8 +52,12 @@ export default class ImagePick extends React.Component {
     return validate;
   };
 
-  getValue = async () => {
+  getValue = () => {
     return this.state.imageBase64;
+  };
+
+  setValue = (image: string) => {
+    this.setState({imageBase64: image});
   };
 
   render = () => {

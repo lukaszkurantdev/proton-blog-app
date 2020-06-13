@@ -27,7 +27,11 @@ class PostsStore {
   @computed
   get userPosts() {
     const {userId} = this.rootStore.userAuthStore;
-    return this.posts.filter((v) => v.user_id === userId);
+    console.log(userId);
+    return this.posts.filter((v) => {
+      console.log(v.user_id === userId, v.user_id, userId);
+      return v.user_id === userId;
+    });
   }
 
   @action
@@ -39,6 +43,7 @@ class PostsStore {
 
     socket.request('GET', {}, (data) => {
       this.posts = data.data;
+      console.log(this.posts[0].user_id);
 
       if (!(data.status && data.status === 'OK')) {
         this.listError = true;
@@ -70,10 +75,43 @@ class PostsStore {
   };
 
   @action
-  alterPost = (post: Post, callback: (data: any) => void) => {};
+  alterPost = (post: Post, callback: (data: any) => void) => {
+    this.fetchingPostForm = true;
+    this.postFormError = false;
+
+    const socket = this.rootStore.connectionStore.socket;
+    console.log('create');
+    socket.request('ALTER', post, (data) => {
+      console.log('data', data);
+
+      if (data.status && data.status === 'OK') {
+        this.getList();
+        callback && callback(data);
+      } else {
+        this.postFormError = true;
+      }
+
+      this.fetchingPostForm = false;
+    });
+  };
 
   @action
-  removePost = (id: number, callback: (data: any) => void) => {};
+  removePost = (id: number, callback: (data: any) => void) => {
+    const socket = this.rootStore.connectionStore.socket;
+    console.log('create');
+    socket.request('DELETE', {id}, (data) => {
+      console.log('data', data);
+
+      if (data.status && data.status === 'OK') {
+        this.getList();
+        callback && callback(data);
+      } else {
+        this.postFormError = true;
+      }
+
+      this.fetchingPostForm = false;
+    });
+  };
 }
 
 export default PostsStore;

@@ -17,6 +17,7 @@ import RootStore from '../core/store/RootStore';
 
 interface IProps {
   store: RootStore;
+  route: any;
   navigation: any;
 }
 
@@ -26,6 +27,23 @@ export default class AddPostPage extends React.Component<IProps> {
   titleInputRef = React.createRef<Input>();
   contentInputRef = React.createRef<Input>();
   imagePickerRef = React.createRef<ImagePicker>();
+
+  postToEdit: Post | undefined =
+    this.props.route.params && this.props.route.params.post;
+
+  componentDidMount = () => {
+    if (this.postToEdit) {
+      const titleRef = this.titleInputRef.current;
+      const contentRef = this.contentInputRef.current;
+      const imageRef = this.imagePickerRef.current;
+
+      if (titleRef && contentRef && imageRef) {
+        titleRef.setValue(this.postToEdit.title);
+        contentRef.setValue(this.postToEdit.content);
+        imageRef.setValue(this.postToEdit.image);
+      }
+    }
+  };
 
   navigateToPostList = () => {
     this.props.navigation.navigate('UserNavigator', {screen: 'My Posts'});
@@ -47,10 +65,19 @@ export default class AddPostPage extends React.Component<IProps> {
         const post: Post = {
           title: titleRef.getValue(),
           content: contentRef.getValue(),
-          image: await imageRef.getValue(),
+          image: imageRef.getValue(),
         };
 
-        this.props.store.postsStore.createPost(post, this.navigateToPostList);
+        if (this.postToEdit) {
+          (post.id = this.postToEdit.id),
+            (post.user_id = this.postToEdit.user_id);
+          this.props.store.postsStore.alterPost(post, () => {
+            this.props.navigation.goBack();
+            this.props.navigation.goBack();
+          });
+        } else {
+          this.props.store.postsStore.createPost(post, this.navigateToPostList);
+        }
       }
     }
   };

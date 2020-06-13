@@ -44,6 +44,9 @@ const en = {
   incorrrect_port: 'Incorrect port number.',
   invalid_username: 'Username is too short.',
   incorrect_password: 'Password is too short.',
+  //PostDetailsPage
+  edit: 'edit',
+  delete: 'delete',
 };
 
 export default en;

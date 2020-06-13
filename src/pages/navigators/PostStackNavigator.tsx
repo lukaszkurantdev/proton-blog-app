@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 //pages
 import PostsListPage from '../PostsListPage';
 import PostDetailsPage from '../PostDetailsPage';
+import AddPostPage from '../AddPostPage';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default class PostStackNavigator extends React.Component {
         }}>
         <Stack.Screen name="Posts List" component={PostsListPage} />
         <Stack.Screen name="Details" component={PostDetailsPage} />
+        <Stack.Screen name="Edit" component={AddPostPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

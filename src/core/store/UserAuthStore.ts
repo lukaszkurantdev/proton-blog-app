@@ -42,7 +42,8 @@ class UserAuthStore {
       console.log('data', data);
 
       if (data.status && data.status === 'OK') {
-        this.userId = data.data.user_id;
+        console.log('id usera', data.data[0].user_id);
+        this.userId = data.data[0].user_id;
         callback && callback();
       } else {
         this.loginError = true;
