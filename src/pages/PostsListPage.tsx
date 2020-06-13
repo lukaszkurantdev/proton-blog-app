@@ -38,6 +38,10 @@ export default class PostsListPage extends React.Component<IProps> {
 
   render() {
     const {fetchingPostForm, listError, posts} = this.props.store.postsStore;
+    const propsedPosts = posts.length > 4 ? posts.slice(0, 3) : [];
+    const otherPosts =
+      posts.length > 4 ? posts.slice(3).reverse() : posts.reverse();
+
     return (
       <>
         <TopBar title={TranslationService.t('proton_blog')} />
@@ -47,16 +51,20 @@ export default class PostsListPage extends React.Component<IProps> {
           <ErrorContainer />
         ) : (
           <FlatList
-            data={posts}
+            data={otherPosts}
             renderItem={this.renderItem}
             keyExtractor={this.keyExtractor}
             contentContainerStyle={styles.flatListContent}
             ListHeaderComponent={
               <>
-                <Text style={[GlobalStyles.mainHeader, styles.header]}>
-                  {TranslationService.t('proposed')}
-                </Text>
-                <Carousel data={posts} />
+                {propsedPosts.length !== 0 && (
+                  <>
+                    <Text style={[GlobalStyles.mainHeader, styles.header]}>
+                      {TranslationService.t('proposed')}
+                    </Text>
+                    <Carousel data={propsedPosts} />
+                  </>
+                )}
                 <Text
                   style={[
                     GlobalStyles.mainHeader,
