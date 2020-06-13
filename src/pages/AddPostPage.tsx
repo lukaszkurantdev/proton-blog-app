@@ -107,6 +107,7 @@ export default class AddPostPage extends React.Component<IProps> {
           <Input
             ref={this.contentInputRef}
             placeholder={TranslationService.t('content')}
+            multiline
           />
 
           <Button

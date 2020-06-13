@@ -14,6 +14,7 @@ interface IProps {
   placeholder?: string;
   containerStyle?: Object;
   type?: InputType;
+  multiline?: boolean;
 }
 
 interface IState {
@@ -87,7 +88,7 @@ class Input extends React.PureComponent<IProps, IState> {
   };
 
   render = () => {
-    const {containerStyle, type} = this.props;
+    const {containerStyle, type, multiline} = this.props;
     const {errorMessage, value} = this.state;
 
     const keyboardType =
@@ -96,13 +97,18 @@ class Input extends React.PureComponent<IProps, IState> {
     return (
       <View style={containerStyle}>
         <TextInput
-          style={[styles.container, !!errorMessage && styles.errorContainer]}
+          style={[
+            styles.container,
+            multiline && styles.multiline,
+            !!errorMessage && styles.errorContainer,
+          ]}
           value={value}
           onChangeText={this.setValue}
           selectionColor={Colors.PRIMARY}
           onFocus={this.onFocus}
           keyboardType={keyboardType}
           secureTextEntry={type === 'password'}
+          multiline={!!multiline}
           {...this.props}
         />
         {!!errorMessage && (
@@ -127,6 +133,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontFamily: Fonts.REGULAR,
     marginVertical: 5,
+  },
+  multiline: {
+    height: 100,
   },
   errorContainer: {
     borderColor: Colors.DANGER,

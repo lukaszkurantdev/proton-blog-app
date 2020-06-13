@@ -46,7 +46,7 @@ export default class MyPostsPage extends React.Component<IProps> {
           <ErrorContainer />
         ) : (
           <FlatList
-            data={userPosts}
+            data={userPosts.reverse()}
             renderItem={this.renderItem}
             keyExtractor={this.keyExtractor}
             contentContainerStyle={styles.flatListContent}
