@@ -45,8 +45,9 @@ const en = {
   invalid_username: 'Username is too short.',
   incorrect_password: 'Password is too short.',
   //PostDetailsPage
-  edit: 'edit',
-  delete: 'delete',
+  actions: 'Actions',
+  edit: 'Edit',
+  delete: 'Delete',
   //SettingsPage
   settings: 'Settings',
   logout: 'Log out',

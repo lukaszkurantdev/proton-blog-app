@@ -49,6 +49,14 @@ export default class PostDetailsPage extends React.Component<IProps> {
           </Text>
           {isUserPost && (
             <>
+              <Text
+                style={[
+                  GlobalStyles.mainHeader,
+                  styles.textJustify,
+                  styles.actionText,
+                ]}>
+                {TranslationService.t('actions')}
+              </Text>
               <Button
                 title={TranslationService.t('edit')}
                 type="secondary"
@@ -82,9 +90,12 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
   },
   firstButton: {
-    marginTop: 20,
+    marginTop: 0,
   },
   secondButton: {
     marginTop: -30,
+  },
+  actionText: {
+    marginTop: 25,
   },
 });

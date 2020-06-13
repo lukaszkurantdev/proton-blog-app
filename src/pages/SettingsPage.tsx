@@ -1,4 +1,5 @@
 import React from 'react';
+import {Text, StyleSheet} from 'react-native';
 import {inject, observer} from 'mobx-react';
 import RNRestart from 'react-native-restart';
 //components
@@ -8,6 +9,7 @@ import TopBar from '../components/TopBar';
 import TranslationService from '../core/services/TranslationService';
 //stores
 import RootStore from '../core/store/RootStore';
+import GlobalStyles from '../styles/GlobalStyles';
 
 interface IProps {
   store: RootStore;
@@ -28,8 +30,22 @@ export default class SettingsPage extends React.Component<IProps> {
     return (
       <>
         <TopBar title={TranslationService.t('settings')} />
-        <Button title={TranslationService.t('logout')} onPress={this.logout} />
+
+        <Text style={[GlobalStyles.mainHeaderDescription, styles.versionText]}>
+          Proton Blog App{'\n'}v1.0
+        </Text>
+        <Button
+          type="secondary"
+          title={TranslationService.t('logout')}
+          onPress={this.logout}
+        />
       </>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  versionText: {
+    padding: 20,
+  },
+});

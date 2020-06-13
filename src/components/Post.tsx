@@ -29,7 +29,9 @@ const Post = (props: IProps) => {
         source={{uri: image}}
       />
       <View style={styles.textContainer}>
-        <Text style={GlobalStyles.mainHeader}>{title}</Text>
+        <Text style={[GlobalStyles.mainHeader, !isCard && styles.smallText]}>
+          {title}
+        </Text>
 
         <Text
           style={GlobalStyles.mainHeaderDescription}
@@ -74,5 +76,9 @@ const styles = StyleSheet.create({
     padding: 15,
     flex: 1,
     justifyContent: 'center',
+  },
+  smallText: {
+    fontSize: 15,
+    marginBottom: 10,
   },
 });

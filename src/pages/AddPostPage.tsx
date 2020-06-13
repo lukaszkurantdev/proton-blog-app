@@ -46,7 +46,7 @@ export default class AddPostPage extends React.Component<IProps> {
   };
 
   navigateToPostList = () => {
-    this.props.navigation.navigate('UserNavigator', {screen: 'My Posts'});
+    this.props.navigation.navigate('Posts List');
   };
 
   create = async () => {

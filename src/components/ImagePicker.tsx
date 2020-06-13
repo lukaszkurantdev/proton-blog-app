@@ -20,6 +20,9 @@ export default class ImagePick extends React.Component {
       storageOptions: {
         skipBackup: true,
       },
+      quality: 0.3,
+      maxWidth: 300,
+      maxHeight: 300,
     };
 
     ImagePicker.showImagePicker(options, (response) => {
