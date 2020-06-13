@@ -71,6 +71,20 @@ class UserAuthStore {
       this.fetchingRegistration = false;
     });
   };
+
+  @action
+  logout = (callback?: () => void) => {
+    const socket = this.rootStore.connectionStore.socket;
+
+    socket.request('LOGOUT', {}, (data) => {
+      console.log('data', data);
+
+      if (data.status && data.status === 'OK') {
+        this.registeredPrompt = true;
+        callback && callback();
+      }
+    });
+  };
 }
 
 export default UserAuthStore;

@@ -10,6 +10,7 @@ import Fonts from '../../styles/Fonts';
 import AddPostPage from '../AddPostPage';
 import MyPostsStackNavigator from './MyPostsStackNavigator';
 import PostStackNavigator from './PostStackNavigator';
+import SettingsPage from '../SettingsPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,6 +18,7 @@ const BottomBarIcons: {[key in string]: string} = {
   'Posts List': 'ios-compass',
   'My Posts': 'ios-heart',
   'Add Post': 'ios-add-circle-outline',
+  Settings: 'ios-settings',
 };
 
 export default class UserTabNavigator extends React.Component {
@@ -48,6 +50,7 @@ export default class UserTabNavigator extends React.Component {
         <Tab.Screen name="Posts List" component={PostStackNavigator} />
         <Tab.Screen name="My Posts" component={MyPostsStackNavigator} />
         <Tab.Screen name="Add Post" component={AddPostPage} />
+        <Tab.Screen name="Settings" component={SettingsPage} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -34,6 +34,11 @@ class ConnectionStore {
 
     this.socket = new Socket(options, cback, onError);
   };
+
+  @action
+  closeSocket = () => {
+    this.socket.close();
+  };
 }
 
 export default ConnectionStore;

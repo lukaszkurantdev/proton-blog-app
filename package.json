@@ -27,6 +27,7 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-localization": "^2.1.6",
     "react-native-reanimated": "^1.9.0",
+    "react-native-restart": "^0.0.17",
     "react-native-safe-area-context": "^3.0.2",
     "react-native-screens": "^2.8.0",
     "react-native-snap-carousel": "^3.9.1",

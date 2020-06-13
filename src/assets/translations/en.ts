@@ -47,6 +47,9 @@ const en = {
   //PostDetailsPage
   edit: 'edit',
   delete: 'delete',
+  //SettingsPage
+  settings: 'Settings',
+  logout: 'Log out',
 };
 
 export default en;
