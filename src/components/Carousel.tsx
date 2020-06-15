@@ -9,6 +9,7 @@ import Colors from '../styles/Colors';
 
 interface IProps {
   data: PostModel[];
+  showDetails: (item: PostModel) => void;
 }
 
 export default class MyCarousel extends React.Component<IProps> {
@@ -17,7 +18,13 @@ export default class MyCarousel extends React.Component<IProps> {
   };
 
   renderItem = ({item, index}: {item: PostModel; index: number}) => {
-    return <Post type="card" {...item} />;
+    return (
+      <Post
+        type="card"
+        {...item}
+        onPress={() => this.props.showDetails(item)}
+      />
+    );
   };
 
   get pagination() {

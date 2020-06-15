@@ -42,8 +42,7 @@ class PostsStore {
     const socket = this.rootStore.connectionStore.socket;
 
     socket.request('GET', {}, (data) => {
-      this.posts = data.data;
-      console.log(this.posts[0].user_id);
+      if (data.data) this.posts = data.data;
 
       if (!(data.status && data.status === 'OK')) {
         this.listError = true;

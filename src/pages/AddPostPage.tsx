@@ -72,11 +72,19 @@ export default class AddPostPage extends React.Component<IProps> {
           (post.id = this.postToEdit.id),
             (post.user_id = this.postToEdit.user_id);
           this.props.store.postsStore.alterPost(post, () => {
+            titleRef.setValue('');
+            contentRef.setValue('');
+            imageRef.setValue('');
             this.props.navigation.goBack();
             this.props.navigation.goBack();
           });
         } else {
-          this.props.store.postsStore.createPost(post, this.navigateToPostList);
+          this.props.store.postsStore.createPost(post, () => {
+            titleRef.setValue('');
+            contentRef.setValue('');
+            imageRef.setValue('');
+            this.navigateToPostList();
+          });
         }
       }
     }

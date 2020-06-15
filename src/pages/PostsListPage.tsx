@@ -38,9 +38,9 @@ export default class PostsListPage extends React.Component<IProps> {
 
   render() {
     const {fetchingPostForm, listError, posts} = this.props.store.postsStore;
-    const propsedPosts = posts.length > 4 ? posts.slice(0, 3) : [];
+    const propsedPosts = posts.length > 2 ? posts.reverse().slice(0, 2) : [];
     const otherPosts =
-      posts.length > 4 ? posts.slice(3).reverse() : posts.reverse();
+      posts.length > 2 ? posts.reverse().slice(2) : posts.reverse();
 
     return (
       <>
@@ -62,7 +62,10 @@ export default class PostsListPage extends React.Component<IProps> {
                     <Text style={[GlobalStyles.mainHeader, styles.header]}>
                       {TranslationService.t('proposed')}
                     </Text>
-                    <Carousel data={propsedPosts} />
+                    <Carousel
+                      data={propsedPosts}
+                      showDetails={this.showDetails}
+                    />
                   </>
                 )}
                 <Text
