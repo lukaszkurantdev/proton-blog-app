@@ -33,7 +33,7 @@ class StartPage extends React.Component<IProps> {
   }
 
   connectToServer = (
-    options: SocketOptions = {host: '192.168.0.178', port: 6666},
+    options: SocketOptions = {host: '51.38.191.101', port: 6666},
   ) => {
     this.props.store.connectionStore.setSocket(options, this.onConnect);
   };

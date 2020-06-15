@@ -6,7 +6,7 @@ class ConnectionStore {
   rootStore: RootStore;
 
   @observable
-  socket: Socket = new Socket({host: '192.168.0.178', port: 6666});
+  socket: Socket = new Socket({host: '51.38.191.101', port: 6666});
 
   @observable
   connectingToServer = false;

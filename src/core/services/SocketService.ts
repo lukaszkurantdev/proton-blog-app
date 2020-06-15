@@ -107,6 +107,8 @@ class Socket {
       const request = {action: Actions[action], params};
       const strigifiedJSON = JSON.stringify(request);
 
+      console.log(strigifiedJSON);
+
       this.client && this.client.write(strigifiedJSON + '\r\n');
 
       const data = new Promise(this.asynchCheck);
