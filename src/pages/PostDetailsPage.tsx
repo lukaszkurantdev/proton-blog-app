@@ -23,7 +23,6 @@ export default class PostDetailsPage extends React.Component<IProps> {
     const {id} = this.props.route.params.data;
     this.props.store.postsStore.removePost(id, () => {
       this.props.navigation.goBack();
-      this.props.navigation.goBack();
     });
   };
 

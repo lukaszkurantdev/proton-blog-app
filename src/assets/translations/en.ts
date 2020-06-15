@@ -36,6 +36,7 @@ const en = {
   title: 'Title',
   content: 'Content',
   add_post: 'Add post',
+  edit_post: 'Edit post',
   list_error: 'Something went wrong...',
   try_later: 'Try again later.',
   //Input validation

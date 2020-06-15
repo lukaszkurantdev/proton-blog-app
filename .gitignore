@@ -60,5 +60,5 @@ buck-out/
 
 
 *.pem
-android/gradle.properties
+
 android/java*

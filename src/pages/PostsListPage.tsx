@@ -38,9 +38,12 @@ export default class PostsListPage extends React.Component<IProps> {
 
   render() {
     const {fetchingPostForm, listError, posts} = this.props.store.postsStore;
-    const propsedPosts = posts.length > 2 ? posts.reverse().slice(0, 2) : [];
+    const propsedPosts =
+      posts.length > 2 ? posts.slice().reverse().slice(0, 2) : [];
     const otherPosts =
-      posts.length > 2 ? posts.reverse().slice(2) : posts.reverse();
+      posts.length > 2
+        ? posts.slice().reverse().slice(2)
+        : posts.slice().reverse();
 
     return (
       <>

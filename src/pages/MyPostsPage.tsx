@@ -29,12 +29,8 @@ export default class MyPostsPage extends React.Component<IProps> {
     this.props.navigation.navigate('Details', {data: item});
   };
 
-  render = () => {
-    const {
-      fetchingPostForm,
-      listError,
-      userPosts,
-    } = this.props.store.postsStore;
+  render() {
+    const {fetchingPostForm, listError, myPosts} = this.props.store.postsStore;
 
     return (
       <>
@@ -46,7 +42,7 @@ export default class MyPostsPage extends React.Component<IProps> {
           <ErrorContainer />
         ) : (
           <FlatList
-            data={userPosts.reverse()}
+            data={myPosts}
             renderItem={this.renderItem}
             keyExtractor={this.keyExtractor}
             contentContainerStyle={styles.flatListContent}
@@ -54,7 +50,7 @@ export default class MyPostsPage extends React.Component<IProps> {
         )}
       </>
     );
-  };
+  }
 }
 
 const styles = StyleSheet.create({

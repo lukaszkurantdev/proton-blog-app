@@ -9,6 +9,9 @@ class PostsStore {
   posts: Post[] = [];
 
   @observable
+  myPosts: Post[] = [];
+
+  @observable
   fetchingList: boolean = false;
 
   @observable
@@ -24,16 +27,6 @@ class PostsStore {
     this.rootStore = rootStore;
   }
 
-  @computed
-  get userPosts() {
-    const {userId} = this.rootStore.userAuthStore;
-    console.log(userId);
-    return this.posts.filter((v) => {
-      console.log(v.user_id === userId, v.user_id, userId);
-      return v.user_id === userId;
-    });
-  }
-
   @action
   getList = () => {
     this.fetchingList = true;
@@ -42,7 +35,15 @@ class PostsStore {
     const socket = this.rootStore.connectionStore.socket;
 
     socket.request('GET', {}, (data) => {
-      if (data.data) this.posts = data.data;
+      if (data.data) {
+        const {userId} = this.rootStore.userAuthStore;
+        this.posts = data.data;
+        this.myPosts = data.data
+          .filter((v: Post) => {
+            return v.user_id === userId;
+          })
+          .reverse();
+      }
 
       if (!(data.status && data.status === 'OK')) {
         this.listError = true;

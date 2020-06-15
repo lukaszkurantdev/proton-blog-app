@@ -95,7 +95,13 @@ export default class AddPostPage extends React.Component<IProps> {
 
     return (
       <>
-        <TopBar title={TranslationService.t('add_new_post')} />
+        <TopBar
+          title={
+            this.postToEdit
+              ? TranslationService.t('edit_post')
+              : TranslationService.t('add_new_post')
+          }
+        />
         <KeyboardAwareScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="always">
@@ -122,7 +128,11 @@ export default class AddPostPage extends React.Component<IProps> {
             onPress={this.create}
             loading={fetchingPostForm}
             type="primary"
-            title={TranslationService.t('add_post')}
+            title={
+              this.postToEdit
+                ? TranslationService.t('edit_post')
+                : TranslationService.t('add_post')
+            }
           />
         </KeyboardAwareScrollView>
       </>

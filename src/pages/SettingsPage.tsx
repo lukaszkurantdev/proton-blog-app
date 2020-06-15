@@ -32,7 +32,7 @@ export default class SettingsPage extends React.Component<IProps> {
         <TopBar title={TranslationService.t('settings')} />
 
         <Text style={[GlobalStyles.mainHeaderDescription, styles.versionText]}>
-          Proton Blog App{'\n'}v1.0
+          Proton Blog App{'\n'}v1.0.1
         </Text>
         <Button
           type="secondary"
